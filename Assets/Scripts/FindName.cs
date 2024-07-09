@@ -8,10 +8,15 @@ public class FindName : MonoBehaviour
 {
     private string[] names = {"John", "Tompson", "Kreks", "Yuto", "kostu4", "Leroy", "Djenkins", "Alis", "Josss", "IamFkingBoss", "Gerde2008s"};
 
-    [ContextMenu("FindName")]
-    void GetName()
+    private List<string> Search()
+    { 
+        List<string> searchedName = names.Where(x => x.EndsWith("s")).OrderByDescending(x => x.Length).Take(1).ToList();
+        return searchedName;
+    }
+
+    [ContextMenu(nameof(GetName))]
+    public void GetName()
     {
-        string name = names.Where(x=>x.EndsWith("s")).OrderByDescending(x=>x.Length).FirstOrDefault();
-        Debug.Log(JsonConvert.SerializeObject(name));
+        Debug.Log(JsonConvert.SerializeObject(Search()));
     }
 }
